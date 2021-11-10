@@ -1,10 +1,36 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link> |
+    <router-link to="/" :getMovies="getMovies">Home</router-link> |
     <router-link to="/about">About</router-link>
   </div>
-  <router-view/>
+  <router-view />
+  <!-- <button @click="getData">Get me</button> -->
 </template>
+
+<script>
+export default {
+  name: "App",
+  data() {
+    return {
+      url: "https://api.themoviedb.org/3/search/movie?api_key=0150f230986e887a5efff2e0af9009b0&query=Jack",
+      movies: [],
+    };
+  },
+  methods: {
+    getMovies() {
+      fetch(this.url)
+        .then((response) => response.json())
+        .then((data) => {
+          this.movies = data;
+        });
+    },
+  },
+
+  // created() {
+  //   this.getData();
+  // },
+};
+</script>
 
 <style>
 #app {
